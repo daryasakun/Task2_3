@@ -9,7 +9,7 @@ public class DrawPanel extends JPanel {
     public void paint(Graphics gr) {
         super.paint(gr);
         Graphics2D g = (Graphics2D) gr;
-        Section sect = new Section(12, 20, 200, 400, g);
+        Section sect = new Section(12, 400, 40, 400, g);
         sect.draw();
 
     }

@@ -59,7 +59,7 @@ public class Section {
 
 
 
-    private float fractionalPart(float x) {
+    private float floatPart(float x) {
         int tmp = (int) x;
         return x - tmp;
     }
@@ -80,11 +80,23 @@ public class Section {
         int dy = y2 - y1;
 
         //Если линия параллельна одной из осей, то не нужно как-то менять яркость
-        if (dx == 0 || dy == 0) {
+        if (dx == 0){
+            g.setColor(Color.BLACK);
+            for (int i = y1; i <= y2; i ++){
+                drawPixel(x1, i);
+            }
+        }
+        if (dy == 0){
+            g.setColor(Color.BLACK);
+            for (int i = x1; i <= x2; i ++){
+                drawPixel(i, y1);
+            }
+        }
+        /*if (dx == 0 || dy == 0) {
             g.setColor(Color.BLACK);
             g.drawLine(x1, y1, x2, y2);
             return;
-        }
+        }*/
         float gradient = 0;
         if (dx > dy) {
             gradient = (float) dy / dx;
@@ -92,9 +104,9 @@ public class Section {
             g.setColor(Color.BLACK);
             drawPixel(x1, y1);
             for (int x = x1; x < x2; ++x) {
-                g.setColor(new Color(0, 0, 0, (int) (255 - fractionalPart(intery) * 255))); //Меняем яркость
+                g.setColor(new Color(0, 0, 0, (int) (255 - floatPart(intery) * 255))); //Меняем яркость
                 drawPixel(x, (int)intery);
-                g.setColor(new Color(0, 0, 0, (int) (fractionalPart(intery) * 255)));
+                g.setColor(new Color(0, 0, 0, (int) (floatPart(intery) * 255)));
                 drawPixel(x, (int)intery + 1);
                 intery += gradient;
             }
@@ -106,9 +118,9 @@ public class Section {
             g.setColor(Color.BLACK);
             drawPixel(x1, y1);
             for (int y = y1; y < y2; ++y) {
-                g.setColor(new Color(0, 0, 0, (int) (255 - fractionalPart(interx) * 255)));
+                g.setColor(new Color(0, 0, 0, (int) (255 - floatPart(interx) * 255)));
                 drawPixel((int)interx, y);
-                g.setColor(new Color(0, 0, 0, (int) (fractionalPart(interx) * 255)));
+                g.setColor(new Color(0, 0, 0, (int) (floatPart(interx) * 255)));
                 drawPixel((int)interx + 1, y);
                 interx += gradient;
             }
